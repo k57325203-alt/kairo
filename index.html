@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>will you be my valentine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=public+sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'public sans', sans-serif;
+            background-color: white;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            position: relative;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffe6f2;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #ff69b4;
+        }
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+        #nobutton {
+            animation: none;
+        }
+        @keyframes shake {
+            0% { transform: translatex(0); }
+            25% { transform: translatex(-5px); }
+            50% { transform: translatex(5px); }
+            75% { transform: translatex(-5px); }
+            100% { transform: translatex(0); }
+        }
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin: 10px;
+        }
+        .snoopy {
+            width: 100px;
+            height: auto;
+            margin: 10px;
+        }
+        .startpic {
+            width: 150px;
+            height: auto;
+            margin: 10px;
+        }
+        .cornerpic {
+            position: fixed;
+            width: 80px;
+            height: auto;
+            z-index: -1;
+        }
+        .top-left {
+            top: 10px;
+            left: 10px;
+        }
+        .top-right {
+            top: 10px;
+            right: 10px;
+        }
+        .bottom-left {
+            bottom: 10px;
+            left: 10px;
+        }
+        .bottom-right {
+            bottom: 10px;
+            right: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .heart {
+            color: #ff69b4;
+            font-size: 24px;
+        }
+        .bottommessage {
+            margin: 10px 0;
+            padding: 10px;
+            background: #ffe6f2;
+            border-radius: 10px;
+        }
+        .letterdesign {
+            border: 5px solid #ff69b4;
+            padding: 20px;
+            background: #fff0f5;
+            border-radius: 15px;
+            margin: 10px;
+        }
+        .bouquet {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .jar {
+            width: 150px;
+            height: auto;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .paper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 2px solid #ff69b4;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        iframe {
+            border: none;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- corner pictures -->
+    <img src="https://i.imgur.com/4Q8Z8Z8.png" alt="corner" class="cornerpic top-left">
+    <img src="https://i.imgur.com/4Q8Z8Z8.png" alt="corner" class="cornerpic top-right">
+    <img src="https://i.imgur.com/4Q8Z8Z8.png" alt="corner" class="cornerpic bottom-left">
+    <img src="https://i.imgur.com/4Q8Z8Z8.png" alt="corner" class="cornerpic bottom-right">
+
+    <div class="container">
+        <!-- page 1: initial question -->
+        <div id="page1">
+            <h1>will you be my valentine?</h1>
+            <img src="https://i.imgur.com/8K9L9L9.png" alt="sticker" class="snoopy">
+            <img src="https://i.imgur.com/2M3N4O5.png" alt="start picture" class="startpic">
+            <p>hi bub, i made this just for you oke? :></p>
+            <button id="yesbutton" onclick="chooseyes()">yes!</button>
+            <button id="nobutton" onclick="handleno()">no</button>
+            <div id="bottommessages"></div>
+            <!-- bruno major - nothing -->
+            <iframe width="0" height="0" src="https://www.youtube.com/embed/PLACEHOLDER?autoplay=1&mute=0" allowfullscreen style="display:none;"></iframe>
+        </div>
+
+        <!-- message for yes choice -->
+        <div id="pageyesmessage" class="hidden">
+            <h2>yay, i knew you'd say yes!</h2>
+            <img src="https://i.imgur.com/6P7Q8R9.png" alt="sticker" class="snoopy">
+            <p>i knew it! celebrating with a dance. love you!</p>
+            <button onclick="gotopassword()">continue to our secret date</button>
+        </div>
+
+        <!-- message for no choice -->
+        <div id="pagenomessage" class="hidden">
+            <h2>well.. you can't say no to me hihi</h2>
+            <img src="https://i.imgur.com/1A2B3C4.png" alt="sticker" class="snoopy">
+            <p>finally gave in, huh? i'm thrilled. let's keep going.</p>
+            <button onclick="gotopassword()">continue to our secret date</button>
+        </div>
+
+        <!-- page 3: password -->
+        <div id="page3" class="hidden">
+            <h2>and one last thingy bub heheh, the month and date we met?</h2>
+            <img src="https://i.imgur.com/5D6E7F8.png" alt="sticker" class="snoopy">
+            <p>one last thing—the date we met? (mmdd, you know it):</p>
+            <input type="password" id="passwordinput" placeholder="e.g., 0826">
+            <button onclick="checkpassword()">submit</button>
+            <div id="passwordmessage"></div>
+        </div>
+
+        <!-- page pick: pick one of 6 snoopy pictures -->
+        <div id="pagepick" class="hidden">
+            <h2>pick a snoopy picture!</h2>
+            <p>choose one to see a special letter.</p>
+            <p>each choice leads to something i made just for you</p>
+            <img src="https://i.imgur.com/9G0H1I2.png" alt="snoopy 1" class="snoopy" onclick="showletter(0)">
+            <img src="https://i.imgur.com/3J4K5L6.png" alt="snoopy 2" class="snoopy" onclick="showletter(1)">
+            <img src="https://i.imgur.com/7M8N9O0.png" alt="snoopy 3" class="snoopy" onclick="showletter(2)">
+            <img src="https://i.imgur.com/1P2Q3R4.png" alt="snoopy 4" class="snoopy" onclick="showletter(3)">
+            <img src="https://i.imgur.com/5S6T7U8.png" alt="snoopy 5" class="snoopy" onclick="showletter(4)">
+            <img src="https://i.imgur.com/9V0W1X2.png" alt="snoopy 6" class="snoopy" onclick="showletter(5)">
+            <!-- the 1975 - about you -->
+            <iframe width="0" height="0" src="https://www.youtube.com/embed/PLACEHOLDER?autoplay=1&mute=0" allowfullscreen style="display:none;"></iframe>
+        </div>
+
+        <!-- page letter: message letter with designs -->
+        <div id="pageletter" class="hidden">
+            <div class="letterdesign">
+                <h2>your message letter</h2>
+                <img src="https://i.imgur.com/Y3Z4A5B.png" alt="sticker" class="snoopy" id="lettersticker">
+                <p id="lettertext">loading...</p>
+                <p></p>
+            </div>
+            <button onclick="gotopuzzle()">next to puzzle</button>
+        </div>
+
+        <!-- page puzzle: assemble bouquet and jar -->
+        <div id="pagepuzzle" class="hidden">
+            <h2>assemble the bouquet!</h2>
+            <p>click the snoopy roses to add to your bouquet.</p>
+            <div class="bouquet" id="bouquet"></div>
+            <img src="https://i.imgur.com/6C7D8E9.png" alt="rose 1" class="snoopy" onclick="addtobouquet('https://i.imgur.com/6C7D8E9.png')">
+            <img src="https://i.imgur.com/F0G1H2I.png" alt="rose 2" class="snoopy" onclick="addtobouquet('https://i.imgur.com/F0G1H2I.png')">
+            <img src="https://i.imgur.com/3J4K5L6.png" alt="rose 3" class="snoopy" onclick="addtobouquet('https://i.imgur.com/3J4K5L6.png')">
+            <h2>now click the jar!</h2>
+            <img src="https://i.imgur.com/7M8N9O0.png" alt="jar" class="jar" onclick="openjar()">
+            <div class="paper" id="paper">
+                <h2>final letter</h2>
+                <p>my love, you've assembled the bouquet and opened the jar—here's my heart in words. you're my everything.</p>
+                <button onclick="gotosuccess()">finish</button>
+            </div>
+        </div>
+
+        <!-- page 4: success -->
+        <div id="page4" class="hidden">
+            <h1>yay you got it!</h1>
+            <h2>of course you would</h2>
+            <img src="https://i.imgur.com/1P2Q3R4.png" alt="sticker" class="snoopy">
+            <p>happy valentine's! this adventure was for us—thanks for playing along. you're amazing, and i love you.</p>
+            <p>each choice led you here, to this heartwarming surprise.</p>
+            <p class="heart"></p>
+        </div>
+    </div>
+
+    <script>
+        const correctpassword = "0826";
+        let nocount = 0;
+        const nomessages = [
+            { text: "are you sure? tot", img: "https://i.imgur.com/4Q8Z8Z8.png" },
+            { text: "why???", img: "https://i.imgur.com/4Q8Z8Z8.png" },
+            { text: "still no? ><ihh", img: "https://i.imgur.com/4Q8Z8Z8.png" }
+        ];
+        const lettermessages = [
+            "when i first met you, i knew your love was too good to be true. it was warm in a way i had never felt before, the kind of warmth that doesn’t rush you or ask for anything in return. being around you felt safe, and that was unfamiliar to me. i wasn’t used to love that didn’t hurt, love that didn’t come with conditions or quiet expectations. a part of me kept waiting for it to disappear, afraid that something this gentle was never meant to stay.",
+            "loving you felt unreal, like stepping into a life i didn’t think i was allowed to have. everything felt lighter when you were near, like the weight i carried could finally rest for a moment. it scared me — not because of you, but because i wasn’t used to happiness that didn’t demand anything from me. your love didn’t ask me to fight or prove myself, it only asked me to be, and i didn’t know how to do that yet.",
+            "loving you was never about the big moments. it lived in the dumb conversations, the way we’d lose track of time without meaning to. we’d watch the same movie again and again, and i’d pretend it was stupid while you caught me crying anyway. we weren’t living inside a perfect scene — no rain, no dramatic gestures — just us, in a quiet room, doing nothing. and somehow, that nothing felt like everything.",
+            "staying was never a loud decision. it wasn’t a promise i announced or a moment that felt dramatic. it was choosing you in the smallest ways — sitting beside you when silence felt heavy, listening even when i was tired, staying when leaving would’ve been easier. every day i stayed, i was choosing you without needing to say it out loud.",
+            "choosing you meant choosing patience. it meant believing that love isn’t always excitement or passion, but consistency. it’s showing up on the ordinary days, the boring days, the days where nothing feels finished. i stayed not because it was easy, but because you were worth the effort, worth the waiting, worth the quiet work of choosing again.",
+            "there were moments when doubt whispered that walking away would hurt less. moments when staying felt like the harder choice. but loving you felt like an act of courage. choosing you felt like choosing hope — not the loud kind, but the quiet belief that something good could grow if i didn’t give up too soon. i stayed because with you, staying felt like choosing a future."
+        ];
+        const letterstickers = [
+            "https://i.imgur.com/9G0H1I2.png", // Warm hug for first meeting
+            "https://i.imgur.com/3J4K5L6.png", // Flying for unreal love
+            "https://i.imgur.com/7M8N9O0.png", // Talking for conversations
+            "https://i.imgur.com/1P2Q3R4.png", // Sitting patiently for staying
+            "https://i.imgur.com/5S6T7U8.png", // Thinking/waiting for patience
+            "https://i.imgur.com/9V0W1X2.png"  // Determined for courage/hope
+        ];
+
+        function chooseyes() {
+            const messagesDiv = document.getElementById('bottommessages');
+            const yayMessage = document.createElement('div');
+            yayMessage.className = 'bottommessage';
+            yayMessage.innerHTML = `<img src="https://i.imgur.com/6P7Q8R9.png" alt="yay picture" class="snoopy"><p>yay! i knew you'd say yes eventually!</p>`;
+            messagesDiv.appendChild(yayMessage);
+            setTimeout(() => {
+                document.getElementById('page1').classList.add('hidden');
+                document.getElementById('pageyesmessage').classList.remove('hidden');
+            }, 2000);
+        }
+
+        function handleno() {
+            nocount++;
+            const noButton = document.getElementById('nobutton');
+            noButton.style.animation = 'shake 0.5s';
+            noButton.style.transform = `scale(${1 + nocount * 0.2})`;
+            const yesButton = document.getElementById('yesbutton');
+            yesButton.style.transform = `scale(${1 + nocount * 0.5})`;
+
+            const messagesDiv = document.getElementById('bottommessages');
+            if (nocount <= nomessages.length) {
+                const message = nomessages[nocount - 1];
+                const newMessage = document.createElement('div');
+                newMessage.className = 'bottommessage';
+                newMessage.innerHTML = `<img src="${message.img}" alt="no picture" class="snoopy"><p>awh, come on bub! try again?</p>`;
+                messagesDiv.appendChild(newMessage);
+            }
+        }
+
+        function gotopassword() {
+            document.getElementById('pageyesmessage').classList.add('hidden');
+            document.getElementById('pagenomessage').classList.add('hidden');
+            document.getElementById('page3').classList.remove('hidden');
+        }
+
+        function checkpassword() {
+            const input = document.getElementById('passwordinput').value;
+            const messageDiv = document.getElementById('passwordmessage');
+            if (input === correctpassword) {
+                messageDiv.innerHTML = '<p>yay, i knew you\'ll get it right</p>';
+                setTimeout(() => {
+                    document.getElementById('page3').classList.add('hidden');
+                    document.getElementById('pagepick').classList.remove('hidden');
+                }, 2000);
+            } else {
+                messageDiv.innerHTML = '<p>awh try again bub !</p>';
+            }
+        }
+
+        function showletter(index) {
+            document.getElementById('lettertext').innerText = lettermessages[index];
+            document.get
